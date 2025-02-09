@@ -1,37 +1,69 @@
 # OsintUi
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.6.
+This is the frontend of the OSINT Web App, providing a ui to interact with the domain scanning system.
 
-## Development server
+## Requirements
+1. Node 22.13.1
+2. Docker
 
-To start a local development server, run:
+## Features
+1. Start, stop, and monitor domain scans
+2. View scan history and details
 
-```bash
-ng serve
-```
+## Installation
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### 1. Clone the repository
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Run the following command in your terminal:
 
 ```bash
-ng generate --help
+git clone https://github.com/BolgovID/osint-ui.git
+cd osint-ui
 ```
 
-## Building
+### 2. Install dependencies
 
-To build the project run:
+To install dependencies, enter in terminal:
 
 ```bash
-ng build
+npm install
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### 3. Run
+
+Start the development server:
+
+```bash
+ng serve --open
+```
+
+This will launch the app in your default web browser at http://localhost:4200.
+
+## Dockerize
+
+### 1.Build image
+
+Run the following:
+
+```bash
+docker build -t osint-ui .
+```
+
+### 2.Run docker container
+
+```bash
+docker run --rm -d osint-ui
+```
+
+## API
+
+The application works with backend api which you can find at https://github.com/BolgovID/osint-scanner
+
+If you deside to run dockerized applications (backend, frontend, postgres) - make sure that them works at the same network.
+For example:
+
+```bash
+docker run --rm -d \
+  --network osint-web-app_osint-network \
+  osint-ui
+```
