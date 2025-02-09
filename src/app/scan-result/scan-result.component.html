@@ -1,0 +1,52 @@
+<header>
+  <div class="header-container">
+    <p class="name">OSINT Tool</p>
+  </div>
+  <mat-progress-bar *ngIf="isLoading" mode="indeterminate" class="loading"></mat-progress-bar>
+</header>
+
+<section class="container">
+  <div class="scan-wrapper">
+    <mat-form-field appearance="outline">
+      <mat-label>Scan domain</mat-label>
+      <input #scanInput matInput pattern="^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$" [(ngModel)]="scanValue" (keydown.enter)="scan()">
+      <mat-icon matSuffix>travel_explore</mat-icon>
+    </mat-form-field>
+
+    <button mat-flat-button (click)="scan()">Scan</button>
+  </div>
+
+  <div class="tools" *ngIf="items.length">
+    <button mat-button (click)="getScanResults(true)">
+      <mat-icon fontSet="material-icons-outlined" class="preview icon">refresh</mat-icon>
+      Refresh
+    </button>
+  </div>
+
+  <section class="scan-result-wrapper" *ngIf="items.length">
+    <div cdkDropList class="scan-result" (cdkDropListDropped)="drop($event)">
+      <div class="scan-item" cdkDrag *ngFor="let item of items">
+
+        <div class="info">
+          <a class="title" [routerLink]="item.id">{{ item.domain }}</a>
+          <div class="date-wrapper">
+            <span class="start" [matTooltipShowDelay]="500" matTooltip="Start Date">{{ item.start_time | date: 'MMM dd, HH:mm:ss' }}</span>
+            <span class="end" *ngIf="item.end_time" [matTooltipShowDelay]="500" matTooltip="End Date">{{ item.end_time | date: 'MMM dd, HH:mm:ss' }}</span>
+          </div>
+        </div>
+
+        <div class="icon-box">
+          <span class="status" [class]="item.status | lowercase" [matTooltipShowDelay]="500" matTooltip="Status">{{ item.status }}</span>
+          <button mat-icon-button [matTooltipShowDelay]="500" matTooltip="Show Logs" class="primary" (click)="openDialog(item.id)">
+            <mat-icon fontSet="material-icons-outlined" class="preview icon">info</mat-icon>
+          </button>
+          <button mat-icon-button [matTooltipShowDelay]="500" matTooltip="Stop Container" class="danger"
+            [class.disabled]="item.status !== 'PROCESSING'" (click)="stopContainer(item.id)">
+            <mat-icon>block</mat-icon>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</section>

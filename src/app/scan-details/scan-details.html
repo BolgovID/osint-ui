@@ -1,0 +1,40 @@
+<header>
+  <div class="header-container">
+    <button mat-icon-button (click)="navigateToHomePage()">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <p class="name">OSINT Tool</p>
+    <button mat-icon-button></button>
+  </div>
+
+  <mat-progress-bar *ngIf="isLoading" mode="indeterminate" class="loading"></mat-progress-bar>
+</header>
+
+<section class="container" *ngIf="model">
+  <div class="card">
+    <div class="header">
+      <div class="left-side">
+        <p class="title">{{ model.domain }}</p>
+        <div class="date-wrapper">
+          <span class="start" [matTooltipShowDelay]="500" matTooltip="Start Date">{{ model.start_time | date: 'MMM dd, HH:mm:ss' }}</span>
+          <span class="end" *ngIf="model.end_time" [matTooltipShowDelay]="500" matTooltip="End Date">{{ model.end_time | date: 'MMM dd, HH:mm:ss' }}</span>
+        </div>
+      </div>
+      <div class="right-side">
+        <span class="status" [class]="model.status | lowercase" [matTooltipShowDelay]="500" matTooltip="Status">{{ model.status }}</span>
+        <mat-icon class="processing-icon" *ngIf="model.status === 'PROCESSING'" fontSet="material-symbols-outlined">progress_activity</mat-icon>
+        <button mat-icon-button [matTooltipShowDelay]="500" matTooltip="Stop Container" class="danger"
+          [class.disabled]="model.status !== 'PROCESSING' || isStopped" (click)="stopContainer(model.id)">
+          <mat-icon>block</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="log-container">
+      <div class="log-wrapper">
+        <p class="empty" *ngIf="!model.logs?.length">Logs is empty ¯\_(ツ)_/¯</p>
+        <p *ngFor="let log of model.logs; let index = index"><span class="line-counter">{{ index + 1 }}</span>{{ log }}</p>
+      </div>
+    </div>
+  </div>
+</section>

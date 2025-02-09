@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Scan Result</h2>
+<mat-dialog-content>
+  <h3>Logs</h3>
+  <p *ngFor="let log of model?.logs">{{ log }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="refresh()">
+    <mat-icon fontSet="material-icons-outlined" class="preview icon">refresh</mat-icon>
+    Refresh
+  </button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>
+    <mat-icon fontSet="material-icons-outlined" class="preview icon">close</mat-icon>
+    Close
+  </button>
+</mat-dialog-actions>
