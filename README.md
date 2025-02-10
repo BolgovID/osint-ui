@@ -3,8 +3,8 @@
 This is the frontend of the OSINT Web App, providing a ui to interact with the domain scanning system.
 
 ## Requirements
-1. Node 22.13.1
-2. Docker
+1. Node 18.13.0+
+2. Docker (Optional)
 
 ## Features
 1. Start, stop, and monitor domain scans
@@ -23,7 +23,7 @@ cd osint-ui
 
 ### 2. Install dependencies
 
-To install dependencies, enter in terminal:
+To install dependencies, run:
 
 ```bash
 npm install
@@ -39,11 +39,11 @@ ng serve --open
 
 This will launch the app in your default web browser at http://localhost:4200.
 
-## Dockerize
+## Docker
 
 ### 1.Build image
 
-Run the following:
+Run the following command:
 
 ```bash
 docker build -t osint-ui .
@@ -59,7 +59,7 @@ docker run --rm -d osint-ui
 
 The application works with backend api which you can find at https://github.com/BolgovID/osint-scanner
 
-If you deside to run dockerized applications (backend, frontend, postgres) - make sure that them works at the same network.
+If you deside to run dockerized applications (backend, frontend, postgres) - make sure that they works on the same docker network.
 For example:
 
 ```bash
